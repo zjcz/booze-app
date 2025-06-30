@@ -52,6 +52,7 @@ class Beer {
   Map<String, dynamic> toFirestore() {
     return {
       'name': name,
+      'nameLowercase': name.toLowerCase(),
       'brewery': brewery,
       'country': country,
       'style': style,
@@ -61,7 +62,9 @@ class Beer {
       'imageUrl': imageUrl,
       'rating': rating,
       'isFavorite': isFavorite,
-      'createdAt': Timestamp.fromDate(createdAt), // Convert DateTime to Timestamp
+      'createdAt': Timestamp.fromDate(
+        createdAt,
+      ), // Convert DateTime to Timestamp
     };
   }
 }
