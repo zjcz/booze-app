@@ -116,23 +116,22 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
         await storageRef.putFile(_image!);
         imageUrl = await storageRef.getDownloadURL();
       }
-
-      final beerData = {
-        'name': _nameController.text,
-        'brewery': _breweryController.text,
-        'country': _countryController.text,
-        'style': _styleController.text,
-        'abv': double.tryParse(_abvController.text) ?? 0.0,
-        'flavor': _flavorController.text,
-        'notes': _notesController.text,
-        'imageUrl': imageUrl,
-        'rating': _rating,
-        'isFavorite': _isFavorite,
-        'createdAt': widget.beer?.createdAt != null
-            ? Timestamp.fromDate(widget.beer!.createdAt)
-            : Timestamp.now(),
-        'lastUpdatedAt': Timestamp.now(),
-      };
+      final beerData = Beer(
+        id: '',
+        name: _nameController.text,
+        brewery: _breweryController.text,
+        country: _countryController.text,
+        style: _styleController.text,
+        abv: double.tryParse(_abvController.text) ?? 0.0,
+        flavor: _flavorController.text,
+        notes: _notesController.text,
+        imageUrl: imageUrl,
+        rating: _rating,
+        isFavorite: _isFavorite,
+        createdAt: widget.beer?.createdAt != null
+            ? widget.beer!.createdAt
+            : DateTime.now(),
+      );
 
       final beerCollection = FirebaseFirestore.instance
           .collection('users')
@@ -141,10 +140,12 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
 
       if (widget.beer != null) {
         // Update existing beer
-        await beerCollection.doc(widget.beer!.id).update(beerData);
+        await beerCollection
+            .doc(widget.beer!.id)
+            .update(beerData.toFirestore());
       } else {
         // Add new beer
-        await beerCollection.add(beerData);
+        await beerCollection.add(beerData.toFirestore());
       }
 
       // Pop twice to get back to the home screen after editing
