@@ -201,9 +201,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   return GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.8,
-                    ),
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.8,
+                        ),
                     itemCount: filteredBeers.length,
                     itemBuilder: (context, index) {
                       final beer = filteredBeers[index];
@@ -224,40 +224,73 @@ class _HomeScreenState extends State<HomeScreen> {
                               Expanded(
                                 child: Center(
                                   child: CircleAvatar(
-                                    backgroundImage:
-                                        NetworkImage(beer.imageUrl),
+                                    backgroundImage: NetworkImage(
+                                      beer.imageUrl,
+                                    ),
                                     radius: 50,
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  beer.name,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0),
-                                child: Text(
-                                  '${beer.brewery}, ${beer.country}',
-                                  style:
-                                      Theme.of(context).textTheme.bodySmall,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 4.0, 8.0, 8.0),
-                                child: Text(
-                                  '${beer.style} | ${beer.abv}% ABV',
-                                  style:
-                                      Theme.of(context).textTheme.bodySmall,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          beer.name,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0,
+                                        ),
+                                        child: Text(
+                                          '${beer.brewery}, ${beer.country}',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodySmall,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                          8.0,
+                                          4.0,
+                                          8.0,
+                                          8.0,
+                                        ),
+                                        child: Text(
+                                          '${beer.style} | ${beer.abv}% ABV',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodySmall,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.star, color: Colors.amber),
+                                        Text('${beer.rating} / 5'),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -291,16 +324,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           title: Text(
                             beer.name,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           subtitle: Text(
                             '${beer.brewery}, ${beer.country}\nStyle: ${beer.style} | ABV: ${beer.abv}%',
                           ),
-                          trailing: beer.isFavorite
-                              ? const Icon(Icons.star,
-                                  color: Colors.amber)
-                              : null,
+                          trailing: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.star, color: Colors.amber),
+                              Text('${beer.rating} / 5'),
+                            ],
+                          ),
                           isThreeLine: true,
                         ),
                       );

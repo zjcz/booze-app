@@ -11,7 +11,6 @@ class Beer {
   final String notes;
   final String imageUrl;
   final int rating;
-  final bool isFavorite;
   final DateTime createdAt;
 
   Beer({
@@ -25,7 +24,6 @@ class Beer {
     required this.notes,
     required this.imageUrl,
     required this.rating,
-    required this.isFavorite,
     required this.createdAt,
   });
 
@@ -42,7 +40,6 @@ class Beer {
       notes: data['notes'] ?? '',
       imageUrl: data['imageUrl'] ?? '',
       rating: (data['rating'] ?? 0).toInt(),
-      isFavorite: data['isFavorite'] ?? false,
       // Firestore stores Timestamps, so we convert it to a DateTime object
       createdAt: (data['createdAt'] as Timestamp? ?? Timestamp.now()).toDate(),
     );
@@ -61,7 +58,6 @@ class Beer {
       'notes': notes,
       'imageUrl': imageUrl,
       'rating': rating,
-      'isFavorite': isFavorite,
       'createdAt': Timestamp.fromDate(
         createdAt,
       ), // Convert DateTime to Timestamp
