@@ -28,7 +28,6 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
 
   // State variables
   late int _rating;
-  late bool _isFavorite;
   File? _image;
   String? _existingImageUrl;
   final _picker = ImagePicker();
@@ -61,7 +60,6 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
       text: isEditMode ? widget.beer!.notes : '',
     );
     _rating = isEditMode ? widget.beer!.rating : 3;
-    _isFavorite = isEditMode ? widget.beer!.isFavorite : false;
     _existingImageUrl = isEditMode ? widget.beer!.imageUrl : null;
   }
 
@@ -127,7 +125,6 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
         notes: _notesController.text,
         imageUrl: imageUrl,
         rating: _rating,
-        isFavorite: _isFavorite,
         createdAt: widget.beer?.createdAt != null
             ? widget.beer!.createdAt
             : DateTime.now(),
@@ -241,15 +238,6 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
                   max: 5,
                   divisions: 5,
                   label: _rating.toString(),
-                ),
-                SwitchListTile(
-                  title: Text('Add to favorites?'),
-                  value: _isFavorite,
-                  onChanged: (newValue) {
-                    setState(() {
-                      _isFavorite = newValue;
-                    });
-                  },
                 ),
                 SizedBox(height: 20),
                 // Image display logic

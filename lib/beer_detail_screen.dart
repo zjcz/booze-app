@@ -137,9 +137,6 @@ class _BeerDetailScreenState extends State<BeerDetailScreen> {
                     ListTile(
                       leading: Icon(Icons.star_outline),
                       title: Text('${widget.beer.rating} / 5'),
-                      trailing: widget.beer.isFavorite
-                          ? Icon(Icons.star, color: Colors.amber)
-                          : null,
                       subtitle: Text('Your Rating'),
                     ),
                   ],
