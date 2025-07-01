@@ -95,3 +95,7 @@ flutter pub get
 ```bash
 flutter run
 ```
+
+## Terms and Conditions, Privacy Policy
+
+Placeholder Terms and Conditions and the Privacy Policy pages have been added to the app for production readiness.  Once the app is finalised these can be generated at [App Privacy Policy Generator](https://app-privacy-policy-generator.firebaseapp.com/)
