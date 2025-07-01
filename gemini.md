@@ -1,6 +1,6 @@
 ### Project Overview
 
-This project is a Flutter application called "booze_app". It appears to be a mobile app for browsing and managing a collection of beers. The app uses Firebase for backend services, including authentication, database, and storage.
+This project is a Flutter application called "booze_app". It is a mobile app for browsing and managing a collection of beers. The app uses Firebase for backend services, including authentication, database, and storage.
 
 ### General
 
