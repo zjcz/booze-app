@@ -1,3 +1,4 @@
+import 'package:booze_app/about_screen.dart';
 import 'package:booze_app/data/beer.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -119,6 +120,22 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.logout),
             tooltip: 'Logout',
             onPressed: () => _auth.signOut(),
+          ),
+          PopupMenuButton(
+            icon: const Icon(Icons.more_vert),
+            tooltip: 'More Options',
+            itemBuilder: (BuildContext bc) {
+              return const [
+                PopupMenuItem(value: 'about', child: Text("About...")),
+              ];
+            },
+            onSelected: (value) async {
+              if (value == 'about') {
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (context) => AboutScreen()));
+              }
+            },
           ),
         ],
       ),
