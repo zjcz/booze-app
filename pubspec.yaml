@@ -55,6 +55,12 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
 
+  test: ^1.25.15
+  mockito: ^5.4.6
+  build_runner: ^2.5.4
+  network_image_mock: ^2.1.1
+  fake_cloud_firestore: ^3.1.0
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

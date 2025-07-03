@@ -37,6 +37,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             RichText(
+              key: const Key('viewTermsAndPrivacyBox'),
               textAlign: TextAlign.center,
               text: TextSpan(
                 text: "Please read and accept our ",

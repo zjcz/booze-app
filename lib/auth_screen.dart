@@ -1,13 +1,14 @@
+import 'package:booze_app/data/firebase_service.dart';
 import 'package:booze_app/widgets/register_widget.dart';
 import 'package:booze_app/widgets/sign_in_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 enum AuthMode { signIn, register }
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({super.key});
+  final FirebaseService firebaseService;
+  const AuthScreen({super.key, required this.firebaseService});
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -20,33 +21,33 @@ class _AuthScreenState extends State<AuthScreen> {
   Future<void> _login(String email, String password) async {
     try {
       if (_formKey.currentState!.validate()) {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+        await widget.firebaseService.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
       }
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseServiceException catch (e) {
       // Handle login errors
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(e.message ?? 'Login failed.')));
+      ).showSnackBar(SnackBar(content: Text('Login failed: ${e.message}')));
     }
   }
 
   Future<void> _register(String email, String password) async {
     try {
       if (_formKey.currentState!.validate()) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        await widget.firebaseService.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
       }
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseServiceException catch (e) {
       // Handle registration errors
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message ?? 'Registration failed.')),
+        SnackBar(content: Text('Registration failed: ${e.message}')),
       );
     }
   }
@@ -79,6 +80,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                 SizedBox(height: 20),
                 RichText(
+                  key: Key('switchModeText'),
                   text: TextSpan(
                     style: Theme.of(context).textTheme.bodyLarge,
                     children: [
