@@ -1,8 +1,19 @@
 # 🍻 Booze App
 
-A flutter application to track the beers you like, the ones you want to try, and the ones you have already tasted. The app is built using Flutter and Firebase.
+![test status](https://github.com/zjcz/booze-app/actions/workflows/tests.yml/badge.svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Flutter Version](https://img.shields.io/badge/Flutter-^3.32.2-blue.svg)](https://flutter.dev/)
 
-## 🖥️ Instructions
+A mobile application to track the beers you like. The app is built using Flutter and Firebase.
+
+## ✨ Features
+
+- Track your favorite beers
+- Add ratings and notes
+- Upload beer photos
+- All data synced to the cloud with Firebase
+
+## 🖥️ Setup Instructions
 
 The app is written in Flutter and uses Firebase for cloud services.
 
@@ -14,7 +25,7 @@ To configure the [Firebase](https://firebase.google.com/?authuser=0) services us
 
   - Go to the [Firebase console](https://console.firebase.google.com/).
   - Click on "Create a Firebased project" and give your project a name (e.g., "Booze-app").
-  - Follow the on-screen instructions to create the project. The app requires Analytics.
+  - Follow the on-screen instructions to create the project. The app currently does not use Analytics so this is oprional.
 
 - The app uses Firebase Authentication to sign in users. We currently use Email + password but could expand it later to include other providers like Google, Facebook, etc.
 
@@ -96,6 +107,22 @@ flutter pub get
 flutter run
 ```
 
-## Terms and Conditions, Privacy Policy
+## 🚂 Motivation
 
-Placeholder Terms and Conditions and the Privacy Policy pages have been added to the app for production readiness.  Once the app is finalised these can be generated at [App Privacy Policy Generator](https://app-privacy-policy-generator.firebaseapp.com/)
+This is an app I have been planning on writing for a while. I used a similar app a few years ago but it only stores data locally on the device (so I lost everything when my old phone died 😥) and unfortunately it is no longer maintained.
+
+This is very much a personal project and I have no intention on releasing it to the app stores. Feel free to fork the repo and build the app yourself for your own use.
+
+## 🪄 AI Coding Assistant
+
+[Gemini Coding Partner Gem](https://gemini.google.com/gem/coding-partner), [Gemini CLI](https://github.com/google-gemini/gemini-cli) and [Gemini Code Assist](https://marketplace.visualstudio.com/items?itemName=Google.geminicodeassist) were all used in the building of this app.
+
+The project contains a `gemini.md` instructions file and [Context7](https://github.com/upstash/context7) MCP server has been configured to assist Gemini.
+
+## 📄 Terms and Conditions, Privacy Policy
+
+Placeholder Terms and Conditions and the Privacy Policy pages have been added to the app for production readiness. Once the app is finalised these can be generated at [App Privacy Policy Generator](https://app-privacy-policy-generator.firebaseapp.com/)
+
+## 💼 License
+
+This project is licensed under the GNU General Public License v3.0 - see the [license.md](license.md) file for details.
