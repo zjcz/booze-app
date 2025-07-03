@@ -1,3 +1,4 @@
+import 'package:booze_app/data/firebase_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -80,9 +81,13 @@ class _BoozeAppState extends State<BoozeApp> {
                           stream: FirebaseAuth.instance.authStateChanges(),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              return const HomeScreen();
+                              return HomeScreen(
+                                firebaseService: FirebaseService.instance(),
+                              );
                             }
-                            return AuthScreen();
+                            return AuthScreen(
+                              firebaseService: FirebaseService.instance(),
+                            );
                           },
                         ),
                       ),

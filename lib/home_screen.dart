@@ -1,29 +1,22 @@
 import 'package:booze_app/about_screen.dart';
 import 'package:booze_app/data/beer.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:booze_app/data/firebase_service.dart';
+import 'package:booze_app/data/sort_option.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'beer_form_screen.dart';
 import 'beer_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final FirebaseService firebaseService;
+
+  const HomeScreen({super.key, required this.firebaseService});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-enum SortOption {
-  nameAsc,
-  nameDesc,
-  createdByAsc,
-  createdByDesc,
-  ratingAsc,
-  ratingDesc,
-}
-
 class _HomeScreenState extends State<HomeScreen> {
-  final _auth = FirebaseAuth.instance;
   SortOption _selectedSortOption = SortOption.nameAsc; // Default sort option
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
@@ -45,39 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  Query<Map<String, dynamic>> _buildQuery(User user) {
-    Query<Map<String, dynamic>> query = FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .collection('beers');
-
-    switch (_selectedSortOption) {
-      case SortOption.nameAsc:
-        query = query.orderBy('nameLowercase', descending: false);
-        break;
-      case SortOption.nameDesc:
-        query = query.orderBy('nameLowercase', descending: true);
-        break;
-      case SortOption.createdByAsc:
-        query = query.orderBy('createdAt', descending: false);
-        break;
-      case SortOption.createdByDesc:
-        query = query.orderBy('createdAt', descending: true);
-        break;
-      case SortOption.ratingAsc:
-        query = query.orderBy('rating', descending: false);
-        break;
-      case SortOption.ratingDesc:
-        query = query.orderBy('rating', descending: true);
-        break;
-    }
-    return query;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final user = _auth.currentUser;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Booze App'),
@@ -129,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: const Icon(Icons.logout),
             tooltip: 'Logout',
-            onPressed: () => _auth.signOut(),
+            onPressed: () => widget.firebaseService.signOut(),
           ),
           PopupMenuButton(
             icon: const Icon(Icons.more_vert),
@@ -167,7 +129,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: _buildQuery(user!).snapshots(),
+              stream: widget.firebaseService
+                  .buildSearchQuery(_selectedSortOption)
+                  .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
@@ -213,8 +177,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    BeerDetailScreen(beer: beer),
+                                builder: (context) => BeerDetailScreen(
+                                  beer: beer,
+                                  firebaseService: widget.firebaseService,
+                                ),
                               ),
                             );
                           },
@@ -313,8 +279,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    BeerDetailScreen(beer: beer),
+                                builder: (context) => BeerDetailScreen(
+                                  beer: beer,
+                                  firebaseService: widget.firebaseService,
+                                ),
                               ),
                             );
                           },
@@ -351,7 +319,10 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () {
           Navigator.of(context).push(
             // Navigate to the form with no beer object to add a new one
-            MaterialPageRoute(builder: (context) => BeerFormScreen()),
+            MaterialPageRoute(
+              builder: (context) =>
+                  BeerFormScreen(firebaseService: widget.firebaseService),
+            ),
           );
         },
         child: const Icon(Icons.add),

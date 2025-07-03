@@ -1,14 +1,17 @@
+import 'package:booze_app/data/firebase_service.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'data/beer.dart';
 import 'beer_form_screen.dart';
 
 class BeerDetailScreen extends StatefulWidget {
   final Beer beer;
+  final FirebaseService firebaseService;
 
-  const BeerDetailScreen({super.key, required this.beer});
+  const BeerDetailScreen({
+    super.key,
+    required this.beer,
+    required this.firebaseService,
+  });
 
   @override
   State<BeerDetailScreen> createState() => _BeerDetailScreenState();
@@ -37,21 +40,7 @@ class _BeerDetailScreenState extends State<BeerDetailScreen> {
 
     if (confirmed == true) {
       try {
-        final user = FirebaseAuth.instance.currentUser!;
-        // Delete the Firestore document
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .collection('beers')
-            .doc(widget.beer.id)
-            .delete();
-
-        // Delete the image from Firebase Storage
-        if (widget.beer.imageUrl.isNotEmpty) {
-          await FirebaseStorage.instance
-              .refFromURL(widget.beer.imageUrl)
-              .delete();
-        }
+        widget.firebaseService.deleteBeer(widget.beer);
 
         // Pop back to the home screen
         if (!mounted) return;
@@ -72,14 +61,17 @@ class _BeerDetailScreenState extends State<BeerDetailScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.delete),
-            onPressed: () => _deleteBeer(context),
+            onPressed: () async => await _deleteBeer(context),
           ),
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => BeerFormScreen(beer: widget.beer),
+                  builder: (context) => BeerFormScreen(
+                    beer: widget.beer,
+                    firebaseService: widget.firebaseService,
+                  ),
                 ),
               );
             },

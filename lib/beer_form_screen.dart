@@ -1,15 +1,14 @@
 import 'dart:io';
 import 'package:booze_app/data/beer.dart';
+import 'package:booze_app/data/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class BeerFormScreen extends StatefulWidget {
+  final FirebaseService firebaseService;
   final Beer? beer;
 
-  const BeerFormScreen({super.key, this.beer});
+  const BeerFormScreen({super.key, this.beer, required this.firebaseService});
 
   @override
   State<BeerFormScreen> createState() => _BeerFormScreenState();
@@ -88,7 +87,6 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
     });
 
     try {
-      final user = FirebaseAuth.instance.currentUser!;
       String imageUrl = _existingImageUrl ?? '';
 
       // If a new image was picked, upload it and delete the old one if it exists
@@ -98,24 +96,17 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
             _existingImageUrl != null &&
             _existingImageUrl!.isNotEmpty) {
           try {
-            await FirebaseStorage.instance
-                .refFromURL(_existingImageUrl!)
-                .delete();
+            await widget.firebaseService.deleteBeerImage(_existingImageUrl!);
           } catch (e) {
             // It's okay if deletion fails (e.g., file doesn't exist), log it
             print("Failed to delete old image: $e");
           }
         }
 
-        final storageRef = FirebaseStorage.instance
-            .ref()
-            .child('beer_images')
-            .child('${user.uid}/${DateTime.now().toIso8601String()}.jpg');
-        await storageRef.putFile(_image!);
-        imageUrl = await storageRef.getDownloadURL();
+        imageUrl = await widget.firebaseService.uploadImage(_image!);
       }
       final beerData = Beer(
-        id: '',
+        id: widget.beer?.id ?? '',
         name: _nameController.text,
         brewery: _breweryController.text,
         country: _countryController.text,
@@ -130,19 +121,12 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
             : DateTime.now(),
       );
 
-      final beerCollection = FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .collection('beers');
-
       if (widget.beer != null) {
         // Update existing beer
-        await beerCollection
-            .doc(widget.beer!.id)
-            .update(beerData.toFirestore());
+        widget.firebaseService.updateBeer(beerData);
       } else {
         // Add new beer
-        await beerCollection.add(beerData.toFirestore());
+        widget.firebaseService.createBeer(beerData);
       }
 
       // Pop twice to get back to the home screen after editing
