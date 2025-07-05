@@ -136,13 +136,13 @@ class _BeerDetailScreenState extends State<BeerDetailScreen> {
               ),
             ),
             SizedBox(height: 16),
-            if (widget.beer.flavor.isNotEmpty) ...[
+            if (widget.beer.flavour.isNotEmpty) ...[
               Text(
-                'Flavor Profile',
+                'Flavour Profile',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               SizedBox(height: 8),
-              Text(widget.beer.flavor),
+              Text(widget.beer.flavour),
               SizedBox(height: 16),
             ],
             if (widget.beer.notes.isNotEmpty) ...[
