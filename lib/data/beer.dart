@@ -7,7 +7,7 @@ class Beer {
   final String country;
   final String style;
   final double abv;
-  final String flavor;
+  final String flavour;
   final String notes;
   final String imageUrl;
   final int rating;
@@ -20,7 +20,7 @@ class Beer {
     required this.country,
     required this.style,
     required this.abv,
-    required this.flavor,
+    required this.flavour,
     required this.notes,
     required this.imageUrl,
     required this.rating,
@@ -36,7 +36,7 @@ class Beer {
       country: data['country'] ?? '',
       style: data['style'] ?? '',
       abv: (data['abv'] ?? 0.0).toDouble(),
-      flavor: data['flavor'] ?? '',
+      flavour: data['flavour'] ?? '',
       notes: data['notes'] ?? '',
       imageUrl: data['imageUrl'] ?? '',
       rating: (data['rating'] ?? 0).toInt(),
@@ -54,7 +54,7 @@ class Beer {
       'country': country,
       'style': style,
       'abv': abv,
-      'flavor': flavor,
+      'flavour': flavour,
       'notes': notes,
       'imageUrl': imageUrl,
       'rating': rating,

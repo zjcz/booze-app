@@ -2,6 +2,8 @@ import 'package:booze_app/about_screen.dart';
 import 'package:booze_app/data/beer.dart';
 import 'package:booze_app/data/firebase_service.dart';
 import 'package:booze_app/data/sort_option.dart';
+import 'package:booze_app/widgets/beer_grid_view_tile.dart';
+import 'package:booze_app/widgets/beer_list_view_tile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'beer_form_screen.dart';
@@ -171,96 +173,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: filteredBeers.length,
                     itemBuilder: (context, index) {
                       final beer = filteredBeers[index];
-                      return Card(
-                        margin: const EdgeInsets.all(8.0),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => BeerDetailScreen(
-                                  beer: beer,
-                                  firebaseService: widget.firebaseService,
-                                ),
-                              ),
-                            );
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Center(
-                                  child: CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                      beer.imageUrl,
-                                    ),
-                                    radius: 50,
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          beer.name,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0,
-                                        ),
-                                        child: Text(
-                                          '${beer.brewery}, ${beer.country}',
-                                          style: Theme.of(
-                                            context,
-                                          ).textTheme.bodySmall,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                          8.0,
-                                          4.0,
-                                          8.0,
-                                          8.0,
-                                        ),
-                                        child: Text(
-                                          '${beer.style} | ${beer.abv}% ABV',
-                                          style: Theme.of(
-                                            context,
-                                          ).textTheme.bodySmall,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.star, color: Colors.amber),
-                                        Text('${beer.rating} / 5'),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                      
+                      return BeerGridViewTile(
+                        beer: beer,
+                        onTap: (beer) => _editBeer(beer),
                       );
                     },
                   );
@@ -270,42 +186,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       final beer = filteredBeers[index];
 
-                      return Card(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => BeerDetailScreen(
-                                  beer: beer,
-                                  firebaseService: widget.firebaseService,
-                                ),
-                              ),
-                            );
-                          },
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(beer.imageUrl),
-                            radius: 30,
-                          ),
-                          title: Text(
-                            beer.name,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(
-                            '${beer.brewery}, ${beer.country}\nStyle: ${beer.style} | ABV: ${beer.abv}%',
-                          ),
-                          trailing: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.star, color: Colors.amber),
-                              Text('${beer.rating} / 5'),
-                            ],
-                          ),
-                          isThreeLine: true,
-                        ),
+                      return BeerListViewTile(
+                        beer: beer,
+                        onTap: (beer) => _editBeer(beer),
                       );
                     },
                   );
@@ -326,6 +209,17 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  void _editBeer(Beer beer) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => BeerDetailScreen(
+          beer: beer,
+          firebaseService: widget.firebaseService,
+        ),
       ),
     );
   }

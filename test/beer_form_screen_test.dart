@@ -21,7 +21,7 @@ void main() {
     abv: 5.0,
     rating: 4,
     notes: 'Test Notes',
-    flavor: 'Test Flavor',
+    flavour: 'Test Flavour',
     imageUrl: 'https://test.com/image.png',
     createdAt: DateTime.now(),
   );
@@ -51,7 +51,7 @@ void main() {
     );
     expect(find.widgetWithText(TextFormField, 'ABV (%)'), findsOneWidget);
     expect(
-      find.widgetWithText(TextFormField, 'Flavor Profile'),
+      find.widgetWithText(TextFormField, 'Flavour Profile'),
       findsOneWidget,
     );
     expect(find.widgetWithText(TextFormField, 'Notes'), findsOneWidget);
@@ -84,7 +84,7 @@ void main() {
       expect(find.text('Test Country'), findsOneWidget);
       expect(find.text('Test Style'), findsOneWidget);
       expect(find.text('5.0'), findsOneWidget);
-      expect(find.text('Test Flavor'), findsOneWidget);
+      expect(find.text('Test Flavour'), findsOneWidget);
       expect(find.text('Test Notes'), findsOneWidget);
       expect(find.byType(Slider), findsOneWidget);
       expect(find.byType(Image), findsOneWidget);

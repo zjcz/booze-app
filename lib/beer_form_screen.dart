@@ -22,7 +22,7 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
   late TextEditingController _countryController;
   late TextEditingController _styleController;
   late TextEditingController _abvController;
-  late TextEditingController _flavorController;
+  late TextEditingController _flavourController;
   late TextEditingController _notesController;
 
   // State variables
@@ -52,8 +52,8 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
     _abvController = TextEditingController(
       text: isEditMode ? widget.beer!.abv.toString() : '',
     );
-    _flavorController = TextEditingController(
-      text: isEditMode ? widget.beer!.flavor : '',
+    _flavourController = TextEditingController(
+      text: isEditMode ? widget.beer!.flavour : '',
     );
     _notesController = TextEditingController(
       text: isEditMode ? widget.beer!.notes : '',
@@ -112,7 +112,7 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
         country: _countryController.text,
         style: _styleController.text,
         abv: double.tryParse(_abvController.text) ?? 0.0,
-        flavor: _flavorController.text,
+        flavour: _flavourController.text,
         notes: _notesController.text,
         imageUrl: imageUrl,
         rating: _rating,
@@ -156,7 +156,7 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
     _countryController.dispose();
     _styleController.dispose();
     _abvController.dispose();
-    _flavorController.dispose();
+    _flavourController.dispose();
     _notesController.dispose();
     super.dispose();
   }
@@ -203,8 +203,8 @@ class _BeerFormScreenState extends State<BeerFormScreen> {
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                 ),
                 TextFormField(
-                  controller: _flavorController,
-                  decoration: InputDecoration(labelText: 'Flavor Profile'),
+                  controller: _flavourController,
+                  decoration: InputDecoration(labelText: 'Flavour Profile'),
                 ),
                 TextFormField(
                   controller: _notesController,
