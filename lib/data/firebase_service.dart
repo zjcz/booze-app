@@ -75,7 +75,7 @@ class FirebaseService {
     required String password,
   }) async {
     try {
-      return auth.signInWithEmailAndPassword(email: email, password: password);
+      return await auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       throw FirebaseServiceException(
         message: e.message ?? '',
@@ -91,7 +91,7 @@ class FirebaseService {
     required String password,
   }) async {
     try {
-      return auth.createUserWithEmailAndPassword(
+      return await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
