@@ -68,7 +68,14 @@ void main() {
       await tester.pumpAndSettle();
 
       // Act
-      await tester.tap(find.text('Privacy Policy'));
+      final buttonFinder = find.text('Privacy Policy');
+      final scrollableFinder = find.byType(Scrollable).last;
+      await tester.scrollUntilVisible(
+        buttonFinder,
+        10,
+        scrollable: scrollableFinder,
+      );
+      await tester.tap(buttonFinder);
       await tester.pumpAndSettle();
 
       // Assert

@@ -51,6 +51,7 @@ class _AboutScreenState extends State<AboutScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               spacing: 20.0,
               children: [
+                Image.asset('assets/images/icon-256x256.png'),
                 Text(
                   'Booze App',
                   style: Theme.of(context).textTheme.headlineMedium,
