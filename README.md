@@ -4,6 +4,8 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Flutter Version](https://img.shields.io/badge/Flutter-^3.32.2-blue.svg)](https://flutter.dev/)
 
+![Booze App](/assets/images/icon-256x256.png?raw=true "Booze App")
+
 A mobile application to track the beers you like. The app is built using Flutter and Firebase.
 
 ## ✨ Features
@@ -107,6 +109,15 @@ flutter pub get
 flutter run
 ```
 
+## 📸 Screenshots
+
+![home screen - list view mode](/screenshots/home-list-view.png?raw=true "Home Screen - List View Mode")
+![home screen - grid view mode](/screenshots/home-grid-view.png?raw=true "Home Screen - Grid View Mode")
+![details screen](/screenshots/details.png?raw=true "Details Screen")
+![add screen](/screenshots/add.png?raw=true "Add Screen")
+![edit screen](/screenshots/edit.png?raw=true "Edit Screen")
+![about screen](/screenshots/about.png?raw=true "About Screen")
+
 ## 🚂 Motivation
 
 This is an app I have been planning on writing for a while. I used a similar app a few years ago but it only stores data locally on the device (so I lost everything when my old phone died 😥) and unfortunately it is no longer maintained.
@@ -118,6 +129,10 @@ This is very much a personal project and I have no intention on releasing it to 
 [Gemini Coding Partner Gem](https://gemini.google.com/gem/coding-partner), [Gemini CLI](https://github.com/google-gemini/gemini-cli) and [Gemini Code Assist](https://marketplace.visualstudio.com/items?itemName=Google.geminicodeassist) were all used in the building of this app.
 
 The project contains a `gemini.md` instructions file and [Context7](https://github.com/upstash/context7) MCP server has been configured to assist Gemini.
+
+## 🎨 Icons and Images
+
+Icons and images were created by a human (no Gen AI model can generate images that look this bad!) in [Figma](https://www.figma.com/), loosely following the guide on [How to Design Your Flutter App Icons in Figma (for Beginners)](https://www.youtube.com/watch?v=yxg9yrZdDlw). Resizing done using [GIMP](https://www.gimp.org/). Images converted to icons for iOS using [App icon Generator](appicon.co). Icons added to Android using the [Configure Image Asset](https://developer.android.com/studio/write/create-app-icons) screen in Android Studio (apps -> res, right click, New -> Image Asset). Splash screen created using [Flutter Native Splash](https://pub.dev/packages/flutter_native_splash).
 
 ## 📄 Terms and Conditions, Privacy Policy
 
