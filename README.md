@@ -27,7 +27,7 @@ To configure the [Firebase](https://firebase.google.com/?authuser=0) services us
 
   - Go to the [Firebase console](https://console.firebase.google.com/).
   - Click on "Create a Firebased project" and give your project a name (e.g., "Booze-app").
-  - Follow the on-screen instructions to create the project. The app currently does not use Analytics so this is oprional.
+  - Follow the on-screen instructions to create the project. The app currently does not use Analytics so this is optional.
 
 - The app uses Firebase Authentication to sign in users. We currently use Email + password but could expand it later to include other providers like Google, Facebook, etc.
 
@@ -122,7 +122,7 @@ flutter run
 
 This is an app I have been planning on writing for a while. I used a similar app a few years ago but it only stores data locally on the device (so I lost everything when my old phone died 😥) and unfortunately it is no longer maintained.
 
-This is very much a personal project and I have no intention on releasing it to the app stores. Feel free to fork the repo and build the app yourself for your own use.
+This is very much a personal project and I have no intention of releasing it to the app stores. Feel free to fork the repo and build the app yourself for your own use.
 
 ## 🪄 AI Coding Assistant
 
